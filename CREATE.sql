@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS Track (
 	id SERIAL PRIMARY KEY,
 	albumid INTEGER REFERENCES Album,
 	name VARCHAR(80) NOT NULL,
-	duration INTEGER NOT NULL CHECK (duration > 0),
+	duration TIME NOT NULL,
 	constraint pk_Track UNIQUE (name, albumid)
 );
 
