@@ -5,7 +5,7 @@ WHERE duration = (SELECT max(duration) FROM track)
 
 --Название треков, продолжительность которых не менее 3,5 минут.
 SELECT name FROM track
-WHERE duration > '000:03:30'
+WHERE duration >= '00:03:30'
 
 --Названия сборников, вышедших в период с 2018 по 2020 год включительно.
 SELECT name, year FROM collection
@@ -17,8 +17,9 @@ SELECT * FROM executor
 WHERE name NOT LIKE '% %'
 
 --Название треков, которые содержат слово «беги» или «go».
-SELECT * FROM track
-WHERE lower(name) LIKE '%беги%' OR lower(name) LIKE '%go%'
+SELECT * 
+FROM track
+WHERE name ~* '\mбеги\M' OR name ~* '\mgo\M';
 
 --Задание 3
 --Количество исполнителей в каждом жанре.
@@ -27,21 +28,25 @@ JOIN genre g ON g.id = genreid
 GROUP BY name
 
 --Количество треков, вошедших в альбомы 2019–2020 годов.
---Изменил условие задания под свои данные, вывожу количество треков в альбомах
---с 2000 по 2018 год включительно.
 SELECT count(*) AS tracks_count FROM album a
 JOIN track t ON t.albumid = a.id
-WHERE a.year > '1999-12-31' AND year < '2019-01-01'
+WHERE a.year > '2018-12-31' AND year < '2021-01-01'
 
 --Средняя продолжительность треков по каждому альбому
-SELECT AVG(duration) FROM track t 
-WHERE albumid > 0
+SELECT albumid, AVG(duration) AS average_duration 
+FROM track 
+WHERE albumid > 0 
+GROUP BY albumid;
 
---Все исполнители, которые не выпустили альбомы в 2018 году.
+--Все исполнители, которые не выпустили альбомы в 2020 году.
 SELECT e.name FROM executor e
-JOIN Album_Executor a ON a.executorid = e.id 
-JOIN album a2 ON a2.id = a.albumid 
-WHERE a2.year NOT BETWEEN '2017-12-31' AND '2019-01-01'
+WHERE e.id NOT IN (
+    SELECT ae.executorid FROM Album_Executor ae
+    JOIN Album a ON a.id = ae.albumid
+    WHERE EXTRACT(YEAR FROM a.year) = 2020
+);
+
+
 
 --Названия сборников, в которых присутствует конкретный исполнитель (выберите его сами).
 SELECT DISTINCT c.name FROM collection c 

@@ -37,7 +37,7 @@ VALUES ('We Are Number One', '00:02:26', 1),
 	   ('Моя Вторая Половина', '00:03:24', NULL),
 	   ('Одинокая искра', '00:05:12', 3),
 	   ('До конца!', '00:04:45', 3),
-	   ('Беги-Беги', '00:04:28', 3),
+	   ('Беги Беги', '00:04:28', 3),
        ('Люди не люди', '00:03:48', 4),
        ('Нет времени для тебя', '00:03:54', 4),
        ('Жизни цель', '00:03:46', 4),
@@ -62,50 +62,129 @@ VALUES ('Сборник 2020', '2020-01-01'),
        ('Без альбома', '2024-01-01');
 	   
 --Присоединение артистов к жанру	   
-INSERT INTO Genre_Executor (genreid, executorid)
-VALUES (1, 1),
-	   (4, 2),
-	   (3, 3),
-	   (3, 4),
-	   (2, 5),
-	   (2, 6);
+INSERT INTO genre_executor (genreid, executorid)
+VALUES 
+    (
+        (SELECT id FROM genre WHERE name = 'Dark cabaret'),
+        (SELECT id FROM executor WHERE name = 'Tardgrade Inferno')
+    ),
+    (
+        (SELECT id FROM genre WHERE name = 'Folk'),
+        (SELECT id FROM executor WHERE name = 'Обними Кита')
+    ),
+    (
+        (SELECT id FROM genre WHERE name = 'Metal'),
+        (SELECT id FROM executor WHERE name = 'Трибунал')
+    ),
+    (
+        (SELECT id FROM genre WHERE name = 'Metal'),
+        (SELECT id FROM executor WHERE name = 'Rammstein')
+    ),
+    (
+        (SELECT id FROM genre WHERE name = 'Rrock'),
+        (SELECT id FROM executor WHERE name = 'Мёртыве Осы')
+    ),
+    (
+        (SELECT id FROM genre WHERE name = 'Rrock'),
+        (SELECT id FROM executor WHERE name = 'LaScala')
+    );
 	   
 --Присоединение артистов и альбомов	   
-INSERT INTO Album_Executor (albumid, executorid)
-VALUES (1, 1),
-	   (2, 2),
-	   (3, 3)
-       (4, 3),
-       (5, 4),
-       (6, 5);
+INSERT INTO album_executor (albumid, executorid)
+VALUES 
+    (
+        (SELECT id FROM album WHERE name = 'Mastermind'),
+        (SELECT id FROM executor WHERE name = 'Tardgrade Inferno')
+    ),
+    (
+        (SELECT id FROM album WHERE name = 'Мой маяк'),
+        (SELECT id FROM executor WHERE name = 'Обними Кита')
+    ),
+    (
+        (SELECT id FROM album WHERE name = 'Время'),
+        (SELECT id FROM executor WHERE name = 'Трибунал')
+    ),
+    (
+        (SELECT id FROM album WHERE name = 'Кто я теперь?'),
+        (SELECT id FROM executor WHERE name = 'Трибунал')
+    ),
+    (
+        (SELECT id FROM album WHERE name = 'Sehnsucht'),
+        (SELECT id FROM executor WHERE name = 'Rammstein')
+    ),
+    (
+        (SELECT id FROM album WHERE name = 'Vol. 1'),
+        (SELECT id FROM executor WHERE name = 'Мёртыве Осы')
+    );
 	   
 --Присоединение названия треков и сборников	 
-INSERT INTO Collections_Track (collectionid, trackid)
-VALUES (14, 14),
-	   (14, 15),
-	   (14, 16),
-	   (14, 17),
-	   (13, 1),
-	   (13, 2),
-	   (13, 3),
-	   (13, 4),
-	   (12, 7),
-	   (12, 8),
-	   (12, 9),
-	   (12, 11),
-	   (12, 12),
-	   (12, 13),
-	   (11, 18),
-       (11, 19),
-       (11, 20),
-       (11, 21),
-       (11, 22),
-       (11, 23),
-       (11, 24),
-       (11, 25),
-       (15, 5),
-       (15, 6),
-       (15, 10),
-       (15, 26),
-	   (15, 27);
-	  
+INSERT INTO collections_track (collectionid, trackid)
+VALUES 
+    (
+        (SELECT id FROM collection WHERE name = 'Сборник 2023'),
+        (SELECT id FROM track WHERE name = 'Беги Беги')
+    ),
+    (
+        (SELECT id FROM collection WHERE name = 'Сборник 2023'),
+        (SELECT id FROM track WHERE name = 'Нет времени для тебя')
+    ),
+    (
+        (SELECT id FROM collection WHERE name = 'Сборник 2023'),
+        (SELECT id FROM track WHERE name = 'Жизни цель')
+    ),
+    (
+        (SELECT id FROM collection WHERE name = 'Сборник 2023'),
+        (SELECT id FROM track WHERE name = 'Новый шанс')
+    ),
+    (
+        (SELECT id FROM collection WHERE name = 'Сборник 2022'),
+        (SELECT id FROM track WHERE name = 'We Are Number One')
+    ),
+    (
+        (SELECT id FROM collection WHERE name = 'Сборник 2022'),
+        (SELECT id FROM track WHERE name = 'Im Coming for Your Soul')
+    ),
+    (
+        (SELECT id FROM collection WHERE name = 'Сборник 2022'),
+        (SELECT id FROM track WHERE name = 'All Tardigrades Go to Hell')
+    ),
+    (
+        (SELECT id FROM collection WHERE name = 'Сборник 2022'),
+        (SELECT id FROM track WHERE name = 'Mastermind')
+    ),
+    (
+        (SELECT id FROM collection WHERE name = 'Сборник 2021'),
+        (SELECT id FROM track WHERE name = 'Кило печенья')
+    ),
+    (
+        (SELECT id FROM collection WHERE name = 'Сборник 2021'),
+        (SELECT id FROM track WHERE name = 'Жизнь')
+    ),
+    (
+        (SELECT id FROM collection WHERE name = 'Сборник 2021'),
+        (SELECT id FROM track WHERE name = 'Миру нужен герой')
+    ),
+    (
+        (SELECT id FROM collection WHERE name = 'Сборник 2020'),
+        (SELECT id FROM track WHERE name = 'Sehnsucht')
+    ),
+    (
+        (SELECT id FROM collection WHERE name = 'Сборник 2020'),
+        (SELECT id FROM track WHERE name = 'Du hast')
+    ),
+    (
+        (SELECT id FROM collection WHERE name = 'Сборник 2020'),
+        (SELECT id FROM track WHERE name = 'Alter Mann')
+    ),
+    (
+        (SELECT id FROM collection WHERE name = 'Сборник 2020'),
+        (SELECT id FROM track WHERE name = 'Spiel Mit Mir')
+    ),
+    (
+        (SELECT id FROM collection WHERE name = 'Без альбома'),
+        (SELECT id FROM track WHERE name = 'Execution is fun!')
+    ),
+    (
+        (SELECT id FROM collection WHERE name = 'Без альбома'),
+        (SELECT id FROM track WHERE name = 'How Nightmares Die')
+    );
